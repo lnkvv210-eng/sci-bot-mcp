@@ -6,14 +6,37 @@ Sci-Bot MCP Server — STDIO 版本
 import os
 import requests
 from mcp.server.fastmcp import FastMCP
+from starlette.responses import JSONResponse
 
 # ==================== 初始化 ====================
-mcp = FastMCP("sci-bot")
+HOST = os.environ.get("HOST", "0.0.0.0").strip().strip('"')
+PORT = int(os.environ.get("PORT", os.environ.get("MCP_PORT", "8000")).strip().strip('"'))
+
+mcp = FastMCP(
+    "sci-bot",
+    host=HOST,
+    port=PORT,
+    sse_path="/sse",
+    message_path="/messages/",
+    streamable_http_path="/mcp",
+)
 
 # ==================== 配置 ====================
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "").strip().strip('"')
 DEEPSEEK_BASE_URL = os.environ.get("AI_BASE_URL", "https://api.deepseek.com").strip().strip('"')
 DEEPSEEK_MODEL = os.environ.get("AI_MODEL", "deepseek-chat").strip().strip('"')
+
+
+def _health_payload() -> dict:
+    return {
+        "status": "ok",
+        "name": "sci-bot",
+        "transport": {
+            "sse": "/sse",
+            "messages": "/messages/",
+            "streamable_http": "/mcp",
+        },
+    }
 
 
 # ==================== 内部函数 ====================
@@ -76,6 +99,16 @@ def _ask_llm(question: str, context: str) -> str:
 
 
 # ==================== MCP Tools ====================
+@mcp.custom_route("/", methods=["GET"], include_in_schema=False)
+async def root(_request):
+    return JSONResponse(_health_payload())
+
+
+@mcp.custom_route("/health", methods=["GET"], include_in_schema=False)
+async def health(_request):
+    return JSONResponse(_health_payload())
+
+
 @mcp.tool()
 def search_papers(query: str, limit: int = 8) -> str:
     """Search 200M+ academic papers using CrossRef API.

@@ -6,7 +6,7 @@ AI-powered research assistant MCP server for searching academic papers and answe
 
 - English name: sci-bot
 - Chinese name: 科研论文助手
-- Hosting type: Local stdio
+- Hosting type: Hosted deployment
 - Category: Research, Academic Search
 - Source: https://github.com/lnkvv210-eng/sci-bot-mcp
 
@@ -16,12 +16,13 @@ AI-powered research assistant MCP server for searching academic papers and answe
 {
   "mcpServers": {
     "sci-bot": {
-      "command": "sci-bot-mcp",
-      "args": [],
+      "command": "python",
+      "args": ["server.py"],
       "env": {
         "DEEPSEEK_API_KEY": "your_deepseek_api_key",
         "AI_BASE_URL": "https://api.deepseek.com",
-        "AI_MODEL": "deepseek-chat"
+        "AI_MODEL": "deepseek-chat",
+        "MCP_TRANSPORT": "sse"
       }
     }
   }
@@ -35,6 +36,9 @@ AI-powered research assistant MCP server for searching academic papers and answe
 | DEEPSEEK_API_KEY | Yes | - | DeepSeek API key used by `ask_research_question`. |
 | AI_BASE_URL | No | https://api.deepseek.com | OpenAI-compatible API endpoint. |
 | AI_MODEL | No | deepseek-chat | Chat model name. |
+| MCP_TRANSPORT | No | sse | Hosted transport. Use `sse` for ModelScope deployment. |
+| PORT | No | 8000 | HTTP port supplied by the platform. |
+| HOST | No | 0.0.0.0 | HTTP bind host. |
 
 ## Tools
 
@@ -65,6 +69,21 @@ Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+
+Run as hosted SSE service:
+
+```bash
+MCP_TRANSPORT=sse PORT=8000 python server.py
+```
+
+Health check:
+
+- `/`
+- `/health`
+
+MCP endpoint:
+
+- `/sse`
 
 Run with stdio for local MCP clients:
 
