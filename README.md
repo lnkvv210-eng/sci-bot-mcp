@@ -8,8 +8,34 @@ AI-powered research assistant MCP server for searching academic papers and answe
 - Chinese name: 科研论文助手
 - Hosting type: Hosted deployment
 - Supported deploy transport: sse
+- Start command: python -m sci_bot_mcp.server
+- MCP endpoint: /sse
 - Category: Research, Academic Search
 - Source: https://github.com/lnkvv210-eng/sci-bot-mcp
+
+## ModelScope Deployment
+
+Start command:
+
+```
+python -m sci_bot_mcp.server
+```
+
+Command:
+
+```
+python
+```
+
+Arguments:
+
+```
+-m sci_bot_mcp.server
+```
+
+Transport: sse
+
+MCP endpoint: /sse
 
 ## MCP Service Configuration
 
@@ -23,7 +49,8 @@ The MCP endpoint is exposed at `/sse`.
 {
   "mcpServers": {
     "sci-bot": {
-      "command": "python -m sci_bot_mcp.server",
+      "command": "python",
+      "args": ["-m", "sci_bot_mcp.server"],
       "env": {
         "DEEPSEEK_API_KEY": "your_deepseek_api_key",
         "AI_BASE_URL": "https://api.deepseek.com",
