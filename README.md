@@ -2,40 +2,29 @@
 
 AI-powered research assistant. Search 200M+ academic papers and get answers with real citations.
 
-## MCP Configuration
+## Features
+
+- **search_papers**: Search 200M+ academic papers
+- **ask_research_question**: Get AI answers with real paper citations
+- **get_paper_details**: Get paper details by DOI
+
+## MCP Configuration (STDIO)
 
 ```json
 {
   "mcpServers": {
     "sci-bot": {
-      "transport": "sse",
-      "url": "https://your-deployed-url/sse"
+      "command": "python",
+      "args": ["-m", "sci_bot_mcp.server_stdio"],
+      "env": {
+        "DEEPSEEK_API_KEY": "your-api-key",
+        "AI_BASE_URL": "https://api.deepseek.com",
+        "AI_MODEL": "deepseek-chat"
+      }
     }
   }
 }
 ```
-
-## Tools
-
-### search_papers
-Search 200M+ academic papers using CrossRef API.
-
-**Parameters:**
-- `query` (string, required): Search query
-- `limit` (integer, optional): Number of results (default: 8, max: 20)
-
-### ask_research_question
-Ask a research question and get AI-generated answer with real paper citations.
-
-**Parameters:**
-- `question` (string, required): Research question
-- `num_references` (integer, optional): Number of reference papers (default: 8, max: 15)
-
-### get_paper_details
-Get detailed information about a specific paper by DOI.
-
-**Parameters:**
-- `doi` (string, required): Paper DOI (e.g. "10.1038/nature14539")
 
 ## Environment Variables
 
@@ -45,12 +34,20 @@ Get detailed information about a specific paper by DOI.
 | AI_BASE_URL | No | API endpoint (default: https://api.deepseek.com) |
 | AI_MODEL | No | Model name (default: deepseek-chat) |
 
+## Install from PyPI
+
+```bash
+pip install sci-bot-mcp
+```
+
 ## Local Development
 
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/lnkvv210-eng/sci-bot-mcp.git
+cd sci-bot-mcp
+pip install -e .
 export DEEPSEEK_API_KEY="sk-your-key"
-python server_http.py
+python server_stdio.py
 ```
 
 ## License
