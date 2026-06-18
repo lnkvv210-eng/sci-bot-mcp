@@ -17,12 +17,11 @@ AI-powered research assistant MCP server for searching academic papers and answe
   "mcpServers": {
     "sci-bot": {
       "command": "python",
-      "args": ["server.py"],
+      "args": ["server_stdio.py"],
       "env": {
         "DEEPSEEK_API_KEY": "your_deepseek_api_key",
         "AI_BASE_URL": "https://api.deepseek.com",
-        "AI_MODEL": "deepseek-chat",
-        "MCP_TRANSPORT": "streamable-http"
+        "AI_MODEL": "deepseek-chat"
       }
     }
   }
@@ -77,7 +76,7 @@ Run with stdio for local MCP clients:
 python server_stdio.py
 ```
 
-Run with streamable HTTP for hosted deployment:
+Run with streamable HTTP for direct HTTP deployment:
 
 ```bash
 set MCP_TRANSPORT=streamable-http
