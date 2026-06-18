@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "sci-bot": {
+      "command": "python",
+      "args": ["server.py"],
+      "env": {
+        "DEEPSEEK_API_KEY": "${DEEPSEEK_API_KEY}"
+      }
+    }
+  }
+}

@@ -1,39 +1,21 @@
 # sci-bot-mcp
 
-AI research assistant MCP server. Search 200M+ papers, get answers with citations.
+AI research assistant MCP server.
 
-## MCP Configuration
+## Install
 
-```json
-{
-  "mcpServers": {
-    "sci-bot": {
-      "command": "python",
-      "args": ["server.py"],
-      "env": {
-        "DEEPSEEK_API_KEY": "${DEEPSEEK_API_KEY}"
-      }
-    }
-  }
-}
-```
+pip install mcp requests
 
-## Environment Variables
+## Run
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| DEEPSEEK_API_KEY | Yes | DeepSeek API Key |
+python server.py
 
 ## Tools
 
-- `search_papers` - Search academic papers
-- `ask_research_question` - Get AI answer with citations
-- `get_paper_details` - Get paper details by DOI
+- search_papers: Search academic papers
+- ask_research_question: Get AI answer with citations
+- get_paper_details: Get paper details by DOI
 
-## Install & Run
+## Environment
 
-```bash
-pip install mcp requests
-export DEEPSEEK_API_KEY="your-key"
-python server.py
-```
+DEEPSEEK_API_KEY: Required. Your DeepSeek API key.
