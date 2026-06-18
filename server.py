@@ -90,7 +90,14 @@ def search_papers(query: str, limit: int = 8) -> str:
         authors = ", ".join(p["authors"][:3])
         if len(p["authors"]) > 3:
             authors += " et al."
-        lines.append(f"[{i}] {p['title']}\n    {authors} ({p.get('year', 'N/A')}) | Cited: {p['citations']}\n    DOI: {p['doi']}\n    URL: {p.get('url', 'N/A')}")
+        doi = p.get('doi', '')
+        url = f"https://doi.org/{doi}" if doi else "N/A"
+        lines.append(
+            f"[{i}] {p['title']}\n"
+            f"    {authors} ({p.get('year', 'N/A')}) | Cited: {p['citations']}\n"
+            f"    DOI: {doi}\n"
+            f"    URL: {url}"
+        )
 
     return "\n\n".join(lines)
 
@@ -121,9 +128,11 @@ def ask_research_question(question: str, num_references: int = 8) -> str:
         authors = ", ".join(p["authors"][:3])
         if len(p["authors"]) > 3:
             authors += " et al."
+        doi = p.get('doi', '')
+        url = f"https://doi.org/{doi}" if doi else ""
         ref = f"[{i}] {authors} ({p.get('year', 'N/A')}). {p['title']}."
-        if p['doi']:
-            ref += f" https://doi.org/{p['doi']}"
+        if url:
+            ref += f"\n    {url}"
         refs.append(ref)
 
     return f"{answer}\n\n---\nReferences:\n" + "\n".join(refs)
