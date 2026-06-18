@@ -13,4 +13,4 @@ ENV MCP_TRANSPORT=sse
 
 EXPOSE 8000
 
-CMD ["python", "-m", "server"]
+CMD ["python", "-m", "sci_bot_mcp.server"]

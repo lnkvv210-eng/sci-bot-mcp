@@ -13,7 +13,7 @@ AI-powered research assistant MCP server for searching academic papers and answe
 
 ## MCP Service Configuration
 
-Use SSE for ModelScope hosted deployment. The service starts with `python -m server`
+Use SSE for ModelScope hosted deployment. The service starts with `python -m sci_bot_mcp.server`
 and exposes the MCP endpoint at `/sse`.
 
 ```json
@@ -21,7 +21,7 @@ and exposes the MCP endpoint at `/sse`.
   "mcpServers": {
     "sci-bot": {
       "command": "python",
-      "args": ["-m", "server"],
+      "args": ["-m", "sci_bot_mcp.server"],
       "env": {
         "DEEPSEEK_API_KEY": "your_deepseek_api_key",
         "AI_BASE_URL": "https://api.deepseek.com",
@@ -36,7 +36,7 @@ and exposes the MCP endpoint at `/sse`.
 Hosted start command:
 
 ```bash
-python -m server
+python -m sci_bot_mcp.server
 ```
 
 ## Environment Variables
@@ -83,7 +83,7 @@ pip install -r requirements.txt
 Run as hosted SSE service:
 
 ```bash
-MCP_TRANSPORT=sse PORT=8000 python -m server
+MCP_TRANSPORT=sse PORT=8000 python -m sci_bot_mcp.server
 ```
 
 Health check:
