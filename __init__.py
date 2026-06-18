@@ -1,1 +1,0 @@
-"""Sci-Bot MCP Server"""
