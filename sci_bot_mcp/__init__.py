@@ -1,2 +1,0 @@
-"""Sci-Bot MCP package."""
-
