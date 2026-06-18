@@ -7,17 +7,21 @@ AI-powered research assistant MCP server for searching academic papers and answe
 - English name: sci-bot
 - Chinese name: 科研论文助手
 - Hosting type: Hosted deployment
+- Supported deploy transport: sse
 - Category: Research, Academic Search
 - Source: https://github.com/lnkvv210-eng/sci-bot-mcp
 
 ## MCP Service Configuration
 
+Use SSE for ModelScope hosted deployment. The service starts with `python server.py`
+and exposes the MCP endpoint at `/sse`.
+
 ```json
 {
   "mcpServers": {
     "sci-bot": {
-      "command": "python",
-      "args": ["server.py"],
+      "type": "sse",
+      "url": "https://your-modelscope-deployment-url/sse",
       "env": {
         "DEEPSEEK_API_KEY": "your_deepseek_api_key",
         "AI_BASE_URL": "https://api.deepseek.com",
@@ -27,6 +31,12 @@ AI-powered research assistant MCP server for searching academic papers and answe
     }
   }
 }
+```
+
+Hosted start command:
+
+```bash
+python server.py
 ```
 
 ## Environment Variables
