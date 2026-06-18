@@ -238,7 +238,7 @@ def get_paper_details(doi: str) -> str:
 def main() -> None:
     transport = os.environ.get("MCP_TRANSPORT", "").strip().strip('"').lower()
     if not transport:
-        transport = "streamable-http" if os.environ.get("PORT") else "stdio"
+        transport = "sse" if os.environ.get("PORT") else "stdio"
 
     if transport not in {"stdio", "sse", "streamable-http"}:
         print(

@@ -76,10 +76,10 @@ Run with stdio for local MCP clients:
 python server_stdio.py
 ```
 
-Run with streamable HTTP for direct HTTP deployment:
+Run with SSE for direct HTTP deployment:
 
 ```bash
-set MCP_TRANSPORT=streamable-http
+set MCP_TRANSPORT=sse
 set PORT=8000
 python server.py
 ```
