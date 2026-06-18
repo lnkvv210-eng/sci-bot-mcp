@@ -6,7 +6,7 @@ AI-powered research assistant MCP server for searching academic papers and answe
 
 - English name: sci-bot
 - Chinese name: 科研论文助手
-- Hosting type: Hosted deployment
+- Hosting type: Local stdio
 - Category: Research, Academic Search
 - Source: https://github.com/lnkvv210-eng/sci-bot-mcp
 
