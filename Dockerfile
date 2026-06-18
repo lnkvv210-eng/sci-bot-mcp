@@ -13,4 +13,4 @@ ENV MCP_TRANSPORT=sse
 
 EXPOSE 8000
 
-CMD ["python", "server.py"]
+CMD ["python", "-m", "server"]
