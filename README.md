@@ -16,8 +16,8 @@ AI-powered research assistant MCP server for searching academic papers and answe
 {
   "mcpServers": {
     "sci-bot": {
-      "command": "python",
-      "args": ["server_stdio.py"],
+      "command": "sci-bot-mcp",
+      "args": [],
       "env": {
         "DEEPSEEK_API_KEY": "your_deepseek_api_key",
         "AI_BASE_URL": "https://api.deepseek.com",
@@ -35,10 +35,6 @@ AI-powered research assistant MCP server for searching academic papers and answe
 | DEEPSEEK_API_KEY | Yes | - | DeepSeek API key used by `ask_research_question`. |
 | AI_BASE_URL | No | https://api.deepseek.com | OpenAI-compatible API endpoint. |
 | AI_MODEL | No | deepseek-chat | Chat model name. |
-| MCP_TRANSPORT | No | auto | `stdio`, `streamable-http`, or `sse`. |
-| PORT | No | 8000 | Hosted HTTP port supplied by the platform. |
-| MCP_PORT | No | 8000 | HTTP port fallback when `PORT` is not set. |
-| HOST | No | 0.0.0.0 | HTTP bind host. |
 
 ## Tools
 
@@ -76,20 +72,8 @@ Run with stdio for local MCP clients:
 python server_stdio.py
 ```
 
-Run with SSE for direct HTTP deployment:
+After package installation, run the console entrypoint:
 
 ```bash
-set MCP_TRANSPORT=sse
-set PORT=8000
-python server.py
+sci-bot-mcp
 ```
-
-Health check endpoints:
-
-- `/`
-- `/health`
-
-MCP endpoints:
-
-- `/mcp`
-- `/sse`

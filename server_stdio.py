@@ -4,40 +4,16 @@ Sci-Bot MCP Server — STDIO 版本
 """
 
 import os
-import sys
 import requests
 from mcp.server.fastmcp import FastMCP
-from starlette.responses import JSONResponse
 
 # ==================== 初始化 ====================
-HOST = os.environ.get("HOST", "0.0.0.0").strip().strip('"')
-PORT = int(os.environ.get("PORT", os.environ.get("MCP_PORT", "8000")).strip().strip('"'))
-
-mcp = FastMCP(
-    "sci-bot",
-    host=HOST,
-    port=PORT,
-    streamable_http_path="/mcp",
-    sse_path="/sse",
-    message_path="/messages/",
-)
+mcp = FastMCP("sci-bot")
 
 # ==================== 配置 ====================
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "").strip().strip('"')
 DEEPSEEK_BASE_URL = os.environ.get("AI_BASE_URL", "https://api.deepseek.com").strip().strip('"')
 DEEPSEEK_MODEL = os.environ.get("AI_MODEL", "deepseek-chat").strip().strip('"')
-
-
-def _deployment_payload() -> dict:
-    return {
-        "status": "ok",
-        "name": "sci-bot",
-        "mcp": {
-            "streamable_http": "/mcp",
-            "sse": "/sse",
-            "messages": "/messages/",
-        },
-    }
 
 
 # ==================== 内部函数 ====================
@@ -100,17 +76,6 @@ def _ask_llm(question: str, context: str) -> str:
 
 
 # ==================== MCP Tools ====================
-
-@mcp.custom_route("/", methods=["GET"], include_in_schema=False)
-async def root(_request):
-    return JSONResponse(_deployment_payload())
-
-
-@mcp.custom_route("/health", methods=["GET"], include_in_schema=False)
-async def health(_request):
-    return JSONResponse(_deployment_payload())
-
-
 @mcp.tool()
 def search_papers(query: str, limit: int = 8) -> str:
     """Search 200M+ academic papers using CrossRef API.
@@ -236,18 +201,7 @@ def get_paper_details(doi: str) -> str:
 
 # ==================== 启动 ====================
 def main() -> None:
-    transport = os.environ.get("MCP_TRANSPORT", "").strip().strip('"').lower()
-    if not transport:
-        transport = "sse" if os.environ.get("PORT") else "stdio"
-
-    if transport not in {"stdio", "sse", "streamable-http"}:
-        print(
-            "Invalid MCP_TRANSPORT. Use stdio, sse, or streamable-http.",
-            file=sys.stderr,
-        )
-        sys.exit(2)
-
-    mcp.run(transport=transport)
+    mcp.run(transport="stdio")
 
 
 if __name__ == "__main__":

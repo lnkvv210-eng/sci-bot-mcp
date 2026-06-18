@@ -7,10 +7,12 @@ requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "lnkvv210-eng"}]
 dependencies = [
-    "mcp>=1.27.0",
+    "mcp[cli]>=1.6.0",
     "requests>=2.28.0",
-    "starlette>=0.27.0",
 ]
+
+[project.scripts]
+sci-bot-mcp = "server_stdio:main"
 
 [build-system]
 requires = ["setuptools>=68.0"]

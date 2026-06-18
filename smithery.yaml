@@ -1,0 +1,29 @@
+# Smithery-compatible MCP metadata.
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      DEEPSEEK_API_KEY:
+        type: string
+        description: "DeepSeek API key used by ask_research_question"
+      AI_BASE_URL:
+        type: string
+        description: "OpenAI-compatible API endpoint"
+        default: "https://api.deepseek.com"
+      AI_MODEL:
+        type: string
+        description: "Chat model name"
+        default: "deepseek-chat"
+  commandFunction: |-
+    (config) => {
+      const env = {};
+      if (config.DEEPSEEK_API_KEY) env.DEEPSEEK_API_KEY = config.DEEPSEEK_API_KEY;
+      if (config.AI_BASE_URL) env.AI_BASE_URL = config.AI_BASE_URL;
+      if (config.AI_MODEL) env.AI_MODEL = config.AI_MODEL;
+      return { command: 'sci-bot-mcp', env };
+    }
+  exampleConfig:
+    DEEPSEEK_API_KEY: "your_deepseek_api_key"
+    AI_BASE_URL: "https://api.deepseek.com"
+    AI_MODEL: "deepseek-chat"
